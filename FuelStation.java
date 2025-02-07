@@ -5,18 +5,18 @@ public class FuelStation {
     private double fuelSales;
     
     public FuelStation() {
-        fuelType = "gasoline";
-        fuelVolume = 75000.0;
-        fuelRate = 2.0;
-        fuelSales = 0.00;
+        this.fuelType = "gasoline";
+        this.fuelVolume = 75000.0;
+        this.fuelRate = 2.0;
+        this.fuelSales = 0.00;
     }
     
     public String getFuelType() {
-        return fuelType;
+        return this.fuelType;
     }
     
     public double getFuelVolume() {
-        return fuelVolume;
+        return this.fuelVolume;
     }
     
     public double getFuelRate() {
@@ -24,17 +24,17 @@ public class FuelStation {
     }
     
     public double getFuelSales() {
-        return fuelSales;
+        return this.fuelSales;
     }
     
     public String toString() {
-        return String.format("FUEL: %s VOL: %.1f PRICE PER L: $%.2f SALES: $%.2f", getFuelType(), getFuelVolume(), getFuelRate(), getFuelSales());  
+        return String.format("FUEL: %s VOL: %.1fL PRICE PER L: $%.1f SALES: $%.1f", getFuelType(), getFuelVolume(), getFuelRate(), getFuelSales());  
     }
     
     private boolean sellFuel(double volume) {
-        if (fuelVolume >= volume) {
-            fuelVolume = fuelVolume - volume;
-            fuelSales = fuelSales + (volume * fuelRate);
+        if (this.fuelVolume >= volume) {
+            this.fuelVolume = this.fuelVolume - volume;
+            this.fuelSales = this.fuelSales + (volume * this.fuelRate);
             return true;
         }
         else {
@@ -43,10 +43,16 @@ public class FuelStation {
     }
     
     public boolean canDispenseFuelType(String fuelType) {
-        return this.fuelType.equals(fuelType);
+        if (fuelType != null) {
+            return fuelType.equals(this.fuelType);
+        }
+        return false;
     }
     
     public boolean dispense(String fuelType, double volume) {
-        return canDispenseFuelType(fuelType) && sellFuel(volume);
+        if (canDispenseFuelType(fuelType)) {
+            return sellFuel(volume);
+        }
+        return false;
     }
 }
